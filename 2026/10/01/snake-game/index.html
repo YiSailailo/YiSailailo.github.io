@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>贪吃蛇小游戏 | 我的博客</title><meta name="author" content="YiSai"><meta name="copyright" content="YiSai"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="今天用网页写了一个贪吃蛇小游戏，想玩游戏的时候点进来就能玩，方向键或 WASD 控制，吃到食物变长、得分、加速。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贪吃蛇小游戏">
+<meta property="og:url" content="http://localhost:4000/2026/10/01/snake-game/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="今天用网页写了一个贪吃蛇小游戏，想玩游戏的时候点进来就能玩，方向键或 WASD 控制，吃到食物变长、得分、加速。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://localhost:4000/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-09-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-01T01:00:00.000Z">
+<meta property="article:author" content="YiSai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://localhost:4000/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "贪吃蛇小游戏",
+  "url": "http://localhost:4000/2026/10/01/snake-game/",
+  "image": "http://localhost:4000/img/butterfly-icon.png",
+  "datePublished": "2026-09-30T16:00:00.000Z",
+  "dateModified": "2026-10-01T01:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "YiSai",
+      "url": "http://localhost:4000"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://localhost:4000/2026/10/01/snake-game/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '贪吃蛇小游戏',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">我的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">贪吃蛇小游戏</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">贪吃蛇小游戏</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-30T16:00:00.000Z" title="发表于 2026-10-01 00:00:00">2026-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-01T01:00:00.000Z" title="更新于 2026-10-01 09:00:00">2026-10-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>今天用网页写了一个贪吃蛇小游戏。以后想玩随时点进来，方向键（↑↓←→）或 WASD 控制移动，吃到红色食物就变长、得分、速度还会慢慢加快，撞墙或咬到自己就结束，按空格键重新开始。手机上可以用屏幕上的方向按钮玩。</p>
+
+<div class="snake-game" style="margin:18px 0;padding:22px;border:1px solid var(--default-border,#e3e8f0);border-radius:12px;background:var(--card-bg,#fff);text-align:center;">
+  <div style="display:flex;justify-content:space-between;align-items:center;max-width:400px;margin:0 auto 14px;">
+    <div style="font-size:16px;font-weight:600;">得分：<span id="score" style="color:#e9543d;">0</span></div>
+    <div style="font-size:16px;font-weight:600;">最高分：<span id="best" style="color:#5aa8d1;">0</span></div>
+  </div>
+  <canvas id="snakeCanvas" width="400" height="400" style="border:2px solid #263238;border-radius:8px;background:#1e272e;max-width:100%;touch-action:none;"></canvas>
+  <div style="margin-top:14px;font-size:14px;color:#666;">方向键 / WASD 控制 · 空格键开始/重开</div>
+  <div class="snake-pad" style="margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+    <div style="display:flex;gap:8px;"><button data-dir="up" style="width:56px;height:46px;font-size:20px;border:none;border-radius:8px;background:#f1f3f8;color:#333;cursor:pointer;">▲</button></div>
+    <div style="display:flex;gap:8px;"><button data-dir="left" style="width:56px;height:46px;font-size:20px;border:none;border-radius:8px;background:#f1f3f8;color:#333;cursor:pointer;">◀</button><button data-dir="down" style="width:56px;height:46px;font-size:20px;border:none;border-radius:8px;background:#f1f3f8;color:#333;cursor:pointer;">▼</button><button data-dir="right" style="width:56px;height:46px;font-size:20px;border:none;border-radius:8px;background:#f1f3f8;color:#333;cursor:pointer;">▶</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  const cv=document.getElementById('snakeCanvas'),ctx=cv.getContext('2d');
+  const N=20,S=cv.width/N;
+  let snake,dir,next,food,score,best=+(localStorage.getItem('snakeBest')||0),over,run,timer;
+  const el={score:document.getElementById('score'),best:document.getElementById('best')};
+  el.best.textContent=best;
+  function reset(){snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];dir={x:1,y:0};next=null;score=0;over=false;run=false;el.score.textContent=0;placeFood();draw();}
+  function placeFood(){do{food={x:Math.random()*N|0,y:Math.random()*N|0}}while(snake.some(function(s){return s.x===food.x&&s.y===food.y}));}
+  function step(){
+    if(over)return;
+    if(next){dir=next;next=null}
+    var head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+    if(head.x<0||head.y<0||head.x>=N||head.y>=N||snake.some(function(s){return s.x===head.x&&s.y===head.y})){gameOver();return;}
+    snake.unshift(head);
+    if(head.x===food.x&&head.y===food.y){
+      score++;el.score.textContent=score;
+      if(score>best){best=score;localStorage.setItem('snakeBest',best);el.best.textContent=best;}
+      placeFood();
+    }else{snake.pop();}
+    draw();
+  }
+  function draw(){
+    ctx.fillStyle='#1e272e';ctx.fillRect(0,0,cv.width,cv.height);
+    ctx.fillStyle='#e74c3c';ctx.beginPath();ctx.arc(food.x*S+S/2,food.y*S+S/2,S/2-2,0,6.283);ctx.fill();
+    for(var i=0;i<snake.length;i++){var s=snake[i];ctx.fillStyle=i===0?'#5aa8d1':'#79b6d6';ctx.beginPath();ctx.roundRect(s.x*S+1,s.y*S+1,S-2,S-2,4);ctx.fill();}
+    if(over){
+      ctx.fillStyle='rgba(0,0,0,.55)';ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.fillStyle='#fff';ctx.font='22px system-ui';ctx.textAlign='center';
+      ctx.fillText('游戏结束，得分 '+score,cv.width/2,cv.height/2-6);
+      ctx.font='14px system-ui';ctx.fillText('按 空格 重新开始',cv.width/2,cv.height/2+20);
+    }else if(!run){
+      ctx.fillStyle='rgba(0,0,0,.45)';ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.fillStyle='#fff';ctx.font='18px system-ui';ctx.textAlign='center';
+      ctx.fillText('按 空格 开始',cv.width/2,cv.height/2);
+    }
+  }
+  function gameOver(){over=true;run=false;clearInterval(timer);draw();}
+  function start(){reset();run=true;timer=setInterval(step,130);}
+  window.addEventListener('keydown',function(e){
+    var k=e.key.toLowerCase();
+    if(k===' '){e.preventDefault();if(over||!run)start();else run=true;return;}
+    var map={arrowup:{x:0,y:-1},arrowdown:{x:0,y:1},arrowleft:{x:-1,y:0},arrowright:{x:1,y:0},w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};
+    var d=map[k];if(!d)return;e.preventDefault();
+    if(!run)start();
+    if(d.x===-dir.x&&d.y===-dir.y)return;next=d;
+  });
+  document.querySelectorAll('.snake-pad button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
+      var d=m[b.getAttribute('data-dir')];
+      if(!run)start();
+      if(d.x===-dir.x&&d.y===-dir.y)return;next=d;
+    });
+  });
+  reset();
+})();
+</script>
+
+<p>下面是这个游戏的完整代码（纯 HTML，复制保存成 <code>.html</code> 文件就能在任何浏览器里打开玩）：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;贪吃蛇&lt;/title&gt;
+  &lt;style&gt;
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#111;font-family:system-ui,sans-serif}
+    .wrap{text-align:center;color:#fff}
+    canvas{background:#1e272e;border:2px solid #263238;border-radius:8px}
+    .row{margin-top:12px;font-size:18px}
+    .pad{display:none;margin-top:12px}
+    .pad button{width:60px;height:50px;font-size:22px;border:none;border-radius:8px;background:#333;color:#fff}
+    @media (pointer:coarse){.pad{display:flex;flex-direction:column;align-items:center;gap:6px}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="wrap"&gt;
+    &lt;div class="row"&gt;得分:&lt;span id="score"&gt;0&lt;/span&gt; &nbsp; 最高:&lt;span id="best"&gt;0&lt;/span&gt;&lt;/div&gt;
+    &lt;canvas id="c" width="400" height="400"&gt;&lt;/canvas&gt;
+    &lt;div class="row"&gt;方向键/WASD 移动 · 空格 开始/重开&lt;/div&gt;
+    &lt;div class="pad"&gt;
+      &lt;div&gt;&lt;button data-d="up"&gt;▲&lt;/button&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;button data-d="left"&gt;◀&lt;/button&gt;&lt;button data-d="down"&gt;▼&lt;/button&gt;&lt;button data-d="right"&gt;▶&lt;/button&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+    const N=20,S=cv.width/N;
+    let snake,dir,next,food,score,best=+(localStorage.getItem('snakeBest')||0),over,run,timer;
+    document.getElementById('best').textContent=best;
+    const $id=id=&gt;document.getElementById(id);
+    function reset(){snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];dir={x:1,y:0};next=null;score=0;over=false;run=false;$id('score').textContent=0;placeFood();draw();}
+    function placeFood(){do{food={x:Math.random()*N|0,y:Math.random()*N|0}}while(snake.some(s=&gt;s.x===food.x&amp;&amp;s.y===food.y));}
+    function step(){if(over)return;if(next){dir=next;next=null}
+      const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+      if(head.x&lt;0||head.y&lt;0||head.x&gt;=N||head.y&gt;=N||snake.some(s=&gt;s.x===head.x&amp;&amp;s.y===head.y)){gameOver();return;}
+      snake.unshift(head);
+      if(head.x===food.x&amp;&amp;head.y===food.y){score++;$id('score').textContent=score;if(score&gt;best){best=score;localStorage.setItem('snakeBest',best);$id('best').textContent=best;}placeFood();}
+      else snake.pop();
+      draw();}
+    function draw(){ctx.fillStyle='#1e272e';ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.fillStyle='#e74c3c';ctx.beginPath();ctx.arc(food.x*S+S/2,food.y*S+S/2,S/2-2,0,6.283);ctx.fill();
+      snake.forEach((s,i)=&gt;{ctx.fillStyle=i===0?'#5aa8d1':'#79b6d6';ctx.beginPath();ctx.roundRect(s.x*S+1,s.y*S+1,S-2,S-2,4);ctx.fill();});
+      if(over){ctx.fillStyle='rgba(0,0,0,.55)';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#fff';ctx.font='22px system-ui';ctx.textAlign='center';ctx.fillText('游戏结束，得分 '+score,cv.width/2,cv.height/2-6);ctx.font='14px system-ui';ctx.fillText('按 空格 重新开始',cv.width/2,cv.height/2+20);}
+      else if(!run){ctx.fillStyle='rgba(0,0,0,.45)';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#fff';ctx.font='18px system-ui';ctx.textAlign='center';ctx.fillText('按 空格 开始',cv.width/2,cv.height/2);}}
+    function gameOver(){over=true;run=false;clearInterval(timer);draw();}
+    function start(){reset();run=true;timer=setInterval(step,130);}
+    window.addEventListener('keydown',e=&gt;{const k=e.key.toLowerCase();
+      if(k===' '){e.preventDefault();if(over||!run)start();else run=true;return;}
+      const map={arrowup:{x:0,y:-1},arrowdown:{x:0,y:1},arrowleft:{x:-1,y:0},arrowright:{x:1,y:0},w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};
+      const d=map[k];if(!d)return;e.preventDefault();if(!run)start();
+      if(d.x===-dir.x&amp;&amp;d.y===-dir.y)return;next=d;});
+    document.querySelectorAll('.pad button').forEach(b=&gt;b.addEventListener('click',()=&gt;{
+      const m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};const d=m[b.dataset.d];
+      if(!run)start();if(d.x===-dir.x&amp;&amp;d.y===-dir.y)return;next=d;}));
+    reset();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://localhost:4000">YiSai</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://localhost:4000/2026/10/01/snake-game/">http://localhost:4000/2026/10/01/snake-game/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://localhost:4000" target="_blank">我的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/04/01/admi_Study/" title="我的学习笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">我的学习笔记</div></div><div class="info-2"><div class="info-item-1">今天通过Ai的辅助写下了这篇文章我会在这里上传我(java小白)学习java的记录今天是学习学生管理系统，功能:登录后查询所有学生学号和成绩，并列出成绩前三名 User:public class User {    private String name;    private String pwd; public User(String name, String pwd) {     this.</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">YiSai</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/10/01/snake-game/" title="贪吃蛇小游戏">贪吃蛇小游戏</a><time datetime="2026-09-30T16:00:00.000Z" title="发表于 2026-10-01 00:00:00">2026-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/hello-world/" title="Hello World">Hello World</a><time datetime="2026-04-01T05:20:07.972Z" title="发表于 2026-04-01 13:20:07">2026-04-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/admi_Study/" title="我的学习笔记">我的学习笔记</a><time datetime="2026-03-31T16:00:00.000Z" title="发表于 2026-04-01 00:00:00">2026-04-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By YiSai</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
